@@ -5,7 +5,7 @@
 @section('content')
     @include('auth.partials.errors')
     @include('auth.partials.flash')
-    {!! Form::model($user, ['class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH', 'action' => ['UserController@update', $user->id]]) !!}
-        @include('users.partials.formEdit')
+    {!! Form::model($user, ['class' => 'form-horizontal', 'files' => true, 'role' => 'form', 'method' => 'PATCH', 'action' => ['UserController@update', $user->id]]) !!}
+        @include('partials.formEdit')
     {!! Form::close() !!}
 @endsection

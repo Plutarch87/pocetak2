@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}"><span><img src="{{ asset('favicon.ico') }}" alt="balls-of-fire"></span> Balls of Fire</a>
+            <a class="navbar-brand" href="{{ url('/home') }}"><span><img src="{{ asset('favicon.ico') }}" alt="balls-of-fire"></span> Balls of Fire</a>
             <a class="navbar-brand" href="{{ route('events.index') }}">Events</a>
             <a class="navbar-brand" href="{{ route('users.index') }}">Players</a>
         </div>
@@ -36,14 +36,24 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
-                    <li><a href="{{ url('/auth/login') }}">Login</a></li>
-                    <li><a href="{{ url('/auth/register') }}">Register</a></li>
+                    <li><a href="{{ route('auth.login') }}">Login</a></li>
+                    <li><a href="{{ route('auth.register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!! Auth::user('name') !!} <span class="caret"></span></a>
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {!! Html::image(Auth::user()->img, 'alt', ['width' => 35, 'height' => 'auto'] ) !!}
+                            &nbsp;&nbsp;&nbsp;
+                            {!! Auth::user()->name !!}
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ action('UserController@edit', [ Auth::user('id') ]) }}">Edit Profile</a></li>
-                            <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+                            @if(Auth::user()->isAdmin() == true)
+                            <li><a href="{{ action('AdminController@index') }}">Dashboard</a></li>
+                            @endif
+                            <li><a href="{{ action('UserController@show', [ Auth::user()->id ]) }}">Profile</a></li>
+                            <li><a href="{{ action('UserController@edit', [ Auth::user()->id ]) }}">Edit Profile</a></li>
+                            <li><a href="{{ route('auth.logout',  Auth::user()->id ) }}">Logout</a></li>
                         </ul>
                     </li>
                 @endif
@@ -51,8 +61,10 @@
         </div>
     </div>
 </nav>
-
-@yield('content')
+<div class="container">
+    <h1>@yield('title')</h1>
+    @yield('content')
+</div>
 
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

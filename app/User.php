@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password', 'roles'];
+	protected $fillable = ['name', 'email', 'password', 'roles', 'img'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -33,6 +33,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
 
     /**
      * Get the associated roles with the given user.
@@ -44,9 +45,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\Role')->withTimestamps();
     }
 
-    public function is_Admin()
+    public function events()
     {
-        return dd($this->has('role_id', '==', 1));
+        return $this->belongsToMany('App\Event')->withTimestamps();
     }
 
+    public function isAdmin()
+    {
+        if($this->roles()->first()->name == 'Admin')
+        {
+            return true;
+        }
+
+    }
 }

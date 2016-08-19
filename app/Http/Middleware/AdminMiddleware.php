@@ -26,10 +26,8 @@ class AdminMiddleware {
 	 */
 	public function handle($request, Closure $next)
 	{
-        if (($this->auth->user()->whereHas('roles', function ($q)
-        {
-            $q->where('role_id','==', 1);
-        })->get()))
+
+        if ($this->auth->guest() || ! $this->auth->user()->isAdmin())
         {
             if ($request->ajax())
             {
@@ -37,7 +35,7 @@ class AdminMiddleware {
             }
             else
             {
-                return response('Unat');
+                return redirect('home');
             }
         }
 

@@ -19,7 +19,7 @@ class UserController extends Controller {
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -28,29 +28,31 @@ class UserController extends Controller {
      */
 	public function index()
 	{
-	    $users = User::all();
-		return view('users.index', compact('users'));
+		return view('users.index');
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param User $user
+     * @return Response
+     */
+	public function create(User $user)
 	{
-		//
+		return view('user.create', compact('user'));
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     * @internal param Request $request
+     */
 	public function store()
 	{
-		//
-	}
+
+    }
 
     /**
      * Display the specified resource.
@@ -85,8 +87,35 @@ class UserController extends Controller {
      */
 	public function update(UserUpdateRequest $request, User $user)
 	{
+        if($request->file('img') == null){
+            $user->update($request->except('img'));
 
-        $user->update($request->all());
+            session()->flash('flash_message', 'Profile successfully updated.');
+
+            return back();
+        }
+        elseif(
+            $request->file('img')->getClientMimeType() == 'image/jpg' ||
+            $request->file('img')->getClientMimeType() == 'image/png' ||
+            $request->file('img')->getClientMimeType() == 'image/jpeg'
+        )
+        {
+            if($request->file('img')->isValid())
+            {
+                $extension = $request->file('img')->getClientOriginalExtension();
+                $desPath = 'storage/images';
+                $img = $desPath .'/'. date('his'). '-' . Auth::user()->name .'.'. $extension;
+
+                $user->img = $img;
+                $request->file('img')->move($desPath, $img);
+            }
+        }
+        else
+        {
+            return response()->json("File must be in image format(.jpeg, .jpg, .png)", 405);
+        }
+
+        $user->update($request->except('img'));
 
         session()->flash('flash_message', 'Profile successfully updated.');
 

@@ -11,13 +11,24 @@
 |
 */
 
+Route::get('/', [
+    'as' => 'welcome',
+    function()
+{
+    if(Auth::guest()) {
+        return view('welcome');
+    } else {return redirect()->route('home');}
+}]);
 
-
-Route::get('/', 'UserController@index' );
+Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index'] );
 
 Route::resource('admin', 'AdminController');
 
+Route::resource('admin.events', 'Admin\EventController');
+
 Route::resource('users', 'UserController');
+
+Route::resource('admin.users', 'Admin\UserController');
 
 Route::resource('events', 'EventController');
 
@@ -26,3 +37,17 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('auth/login', [
+    'as' => 'auth.login',
+    'uses' => 'Auth\AuthController@getLogin'
+]);
+
+Route::get('auth/register', [
+    'as' => 'auth.register',
+    'uses' => 'Auth\AuthController@getRegister'
+]);
+
+Route::get('auth/logout', [
+    'as' => 'auth.logout',
+    'uses' => 'Auth\AuthController@getLogout'
+]);

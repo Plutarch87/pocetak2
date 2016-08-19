@@ -1,8 +1,12 @@
 @extends('layouts.master')
 
+@section('title', $user->name)
+
 @section('content')
 
-    <h1>{!!  $user->name !!}'s Profile</h1>
-    <p>{!! $user->email !!}</p>
+    <p><a href="#">{!! $user->email !!}</a></p>
+    <div class="thumbnail col-sm-2">
+        {!! Html::image($user->img) !!}
+    </div>
 
 @endsection

@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller {
@@ -41,15 +42,16 @@ class AdminController extends Controller {
 		//
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
+    /**
+     * Display the specified resource.
+     *
+     * @param User $user
+     * @return Response
+     * @internal param int $id
+     */
+	public function show(User $user)
 	{
-		//
+		return view('admin.show', compact($user));
 	}
 
 	/**
