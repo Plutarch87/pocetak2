@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\EventUpdateRequest;
+use App\Type;
 use Illuminate\Http\Request;
 
 class EventController extends Controller {
@@ -33,7 +34,9 @@ class EventController extends Controller {
      */
 	public function create(Event $event)
 	{
-		return view('admin.events.create', compact('event'));
+	    $types = Type::lists('name', 'id');
+
+		return view('admin.events.create', compact('event', 'types'));
 	}
 
     /**
@@ -47,7 +50,7 @@ class EventController extends Controller {
 	{
 		$event->create($request->all());
 
-        return redirect()->route('admin.events.show', $event->id);
+        return redirect()->route('admin.events.show', \Auth::user()->id);
 	}
 
     /**

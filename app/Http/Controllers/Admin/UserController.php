@@ -91,6 +91,8 @@ class UserController extends Controller {
 	{
 	    $user = User::find($id);
 
+        $this->syncRoles($user, $request->input('role_list'));
+
         if($request->file('img') == null){
             $user->update($request->except('img'));
 
@@ -121,10 +123,23 @@ class UserController extends Controller {
 
         $user->update($request->except('img'));
 
+        $this->syncRoles($user, $request->input('role_list'));
+
         session()->flash('flash_message', 'Profile successfully updated.');
 
         return back();
 	}
+
+
+    /**
+     * Sync the admin status
+     * @param User $user
+     * @param array $roles
+     */
+    public function syncRoles(User $user, array $roles)
+    {
+        $user->roles()->sync($roles);
+    }
 
 	/**
 	 * Remove the specified resource from storage.

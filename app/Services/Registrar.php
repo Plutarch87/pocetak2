@@ -37,7 +37,7 @@ class Registrar implements RegistrarContract {
             'password' => bcrypt($data['password']),
             'img' => 'storage/images/default.png'
         ]);
-        $role = Role::find(2);
+        $role = Role::find(1);
 
         $user->roles()->attach([$role->id]);
 

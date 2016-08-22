@@ -2,6 +2,7 @@
 
 
 use App\User;
+use App\Role;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider {
 	{
         $this->showAllUsers();
         $this->showAllUsersForAdmin();
+        $this->listRoles();
     }
 
 	/**
@@ -48,6 +50,13 @@ class AppServiceProvider extends ServiceProvider {
             {
                 $q->where('name','!=','Admin');
             })->get());
+        });
+    }
+
+    public function listRoles()
+    {
+        view()->composer('partials.formEdit', function ($view) {
+            $view->with('roles', Role::has('users')->lists('name', 'id'));
         });
     }
 

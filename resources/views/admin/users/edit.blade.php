@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit '.$user->name.' Profile')
+@section('title', 'Edit Profile: '.$user->name)
 
 @section('content')
     {!! Form::model($user, ['class' => 'form-horizontal', 'files' => true, 'role' => 'form', 'method' => 'PATCH', 'action' => ['Admin\UserController@update', $user->id, Auth::user()->id]]) !!}

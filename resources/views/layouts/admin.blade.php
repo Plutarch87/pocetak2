@@ -79,23 +79,16 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="<!-- active -->">
-                    <a href="#">
-                        <i class="fa fa-archive"></i>
+                <li>
+                    <a href="{!! route('admin.events.create', Auth::user()->id) !!}">
+                        <i class="fa fa-futbol-o" aria-hidden="true"></i>
+                        <span>Create new event &plus;</span>
                     </a>
-                </li>
-                <li class="treeview">
-                    <a href="">
-                        <i class="fa fa-cog"></i>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class=""><a href="#"><i class="fa fa-circle-o"></i></a></li>
-                    </ul>
                 </li>
                 <li class="">
-                    <a href="#">
+                    <a href="{!! route('admin.users.index', Auth::user()->id) !!}">
                         <i class="fa fa-users"></i>
+                        <span>Users</span>
                     </a>
                 </li>
             </ul>
@@ -107,8 +100,8 @@
                 <div class="row">
                     <div class="col-lg-4 col-xs-6">
                         <div class="info-box">
-                            <a href="{{ route('admin.events.index', \Auth::user()->name) }}">
-                            <span class="info-box-icon bg-blue"><i class="fa fa-archive"></i></span>
+                            <a href="{{ route('admin.events.index', Auth::user()->id) }}">
+                            <span class="info-box-icon bg-blue"><i class="fa fa-futbol-o" aria-hidden="true"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Events</span>
                                 <span class="info-box-number">
@@ -121,7 +114,7 @@
                     <div class="col-lg-4 col-xs-6">
                         <div class="info-box">
                             <a href="{!! "route('admin.spectators.index')" !!}">
-                            <span class="info-box-icon bg-red"><i class="fa fa-archive"></i></span>
+                            <span class="info-box-icon bg-red"><i class="fa fa-binoculars" aria-hidden="true"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Spectators</span>
                                 <span class="info-box-number">
@@ -146,16 +139,21 @@
                     </div>
                 </div>
             @show
-            <h1>@yield('title')</h1>
-            <ol class="breadcrumb">
-                @yield('breadcrumb')
-            </ol>
         </div>
         <div class="content">
-            @include('auth.partials.errors')
-            @include('auth.partials.flash')
+            <div class="box box-primary">
+                <div class="box-header" style="background-color: #3c8dbc;">
+                    <h1 class="box-title" style="color: #ffffcc;  ">@yield('title')</h1>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        @include('auth.partials.errors')
+                        @include('auth.partials.flash')
 
-            @yield('content')
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

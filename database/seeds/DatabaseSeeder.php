@@ -1,6 +1,7 @@
 <?php
 
 use App\Role;
+use App\Type;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		 $this->call('RoleTableSeeder');
-		 $this->call('TypeTableSeeder');
+        $this->call('TypeTableSeeder');
+        $this->call('RoleTableSeeder');
 	}
 
 }
@@ -68,10 +69,9 @@ class TypeTableSeeder extends Seeder {
         ];
 
         DB::table('types')->delete();
-
         foreach($types as $type)
         {
-            Role::create($type);
+            Type::create($type);
         }
     }
 }

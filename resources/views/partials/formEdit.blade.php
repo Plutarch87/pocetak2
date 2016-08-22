@@ -14,6 +14,25 @@
         </div>
     </div>
 </div>
+@if(Auth::user()->isAdmin())
+<div class="form-group">
+    {!! Form::label('role_list', 'Grant a Role:', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-4">
+        {!! Form::select('role_list[]', $roles, null, ['id' => 'role_list', 'class' => 'form-control', 'multiple']) !!}
+    </div>
+</div>
+<div class="form-group">
+    {!! Form::label('role', 'Role(s):', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-4">
+        <p class="form-control">
+        @foreach($user->roles as $role)
+            {!! $role->name !!},
+        @endforeach
+        </p>
+    </div>
+</div>
+
+@endif
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">

@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserUpdateRequest;
+use App\Role;
 use Illuminate\Contracts\Auth\Guard;
 use App\User;
 use Illuminate\Http\Request;
@@ -69,6 +70,7 @@ class UserController extends Controller {
      * Show the form for editing the specified resource.
      *
      * @param User $user
+     * @param Role $roles
      * @return Response
      * @internal param int obj
      */
@@ -88,6 +90,7 @@ class UserController extends Controller {
 	public function update(UserUpdateRequest $request, User $user)
 	{
         if($request->file('img') == null){
+
             $user->update($request->except('img'));
 
             session()->flash('flash_message', 'Profile successfully updated.');
@@ -122,7 +125,7 @@ class UserController extends Controller {
         return back();
 	}
 
-	/**
+    /**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id

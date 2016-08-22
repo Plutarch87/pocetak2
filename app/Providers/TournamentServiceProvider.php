@@ -13,6 +13,7 @@ class TournamentServiceProvider extends ServiceProvider {
 	public function boot()
 	{
         $this->showAllEvents();
+        $this->showAllEventsForAdmin();
     }
 
 	/**
@@ -28,6 +29,13 @@ class TournamentServiceProvider extends ServiceProvider {
     public function showAllEvents()
     {
         view()->composer('partials.allEvents', function ($view) {
+            $view->with('events', Event::all()->sortByDesc('created_at'));
+        });
+    }
+
+    public function showAllEventsForAdmin()
+    {
+        view()->composer('admin.events.index', function ($view) {
             $view->with('events', Event::all()->sortByDesc('created_at'));
         });
     }
