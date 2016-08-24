@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Contracts\Auth\Guard;
 use App\User;
 use Illuminate\Http\Request;
@@ -44,9 +44,9 @@ class UserController extends Controller {
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
-     * @param User $user
      * @return Response
+     * @internal param Request $request
+     * @internal param User $user
      * @internal param Request $request
      */
 	public function store()
@@ -60,9 +60,9 @@ class UserController extends Controller {
      * @param User $user
      * @return Response
      */
-	public function show(User $user)
+	public function show()
 	{
-        return view('admin.users.show', compact('user'));
+
 	}
 
     /**
@@ -82,12 +82,13 @@ class UserController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param UserUpdateRequest $request
-     * @param User $user
+     * @param UserRequest $request
+     * @param $id
      * @return Response
+     * @internal param User $user
      * @internal param obj
      */
-	public function update(UserUpdateRequest $request, $id)
+	public function update(UserRequest $request, $id)
 	{
 	    $user = User::find($id);
 
@@ -141,15 +142,19 @@ class UserController extends Controller {
         $user->roles()->sync($roles);
     }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param User $user
+     * @return Response
+     * @internal param int $id
+     */
+	public function destroy(User $user)
 	{
-		//
+		$user->delete();
+
+//        return redirect()->route('admin.user');
+        return back();
 	}
 
 }

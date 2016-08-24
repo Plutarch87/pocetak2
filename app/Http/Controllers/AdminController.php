@@ -51,7 +51,7 @@ class AdminController extends Controller {
      */
 	public function show(User $user)
 	{
-		return view('admin.show', compact($user));
+		return view('admin.show', compact('user'));
 	}
 
 	/**
@@ -82,9 +82,11 @@ class AdminController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(User $user)
 	{
-		//
+		$user->delete();
+
+        return back();
 	}
 
 }

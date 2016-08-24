@@ -23,6 +23,8 @@ class AuthController extends Controller {
 
     public $redirectAfterLogout = '/home';
 
+    public $redirectTo = '/admin';
+
 	/**
 	 * Create a new authentication controller instance.
 	 *
@@ -36,6 +38,7 @@ class AuthController extends Controller {
 		$this->registrar = $registrar;
 
 		$this->middleware('guest', ['except' => 'getLogout']);
+
 	}
 
 }

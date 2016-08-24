@@ -50,10 +50,10 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{!! route('admin.show', Auth::user()->name) !!}" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="{!! route('admin.show', Auth::user()->id) !!}" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <span>
-                                    <a href="{!! route('admin.edit', Auth::user()->name) !!}" class="btn btn-default btn-flat">Edit</a>
+                                    <a href="{!! route('admin.edit', Auth::user()->id) !!}" class="btn btn-default btn-flat">Edit</a>
                                 </span>
 
                                 <span>
@@ -127,7 +127,7 @@
                     <div class="col-lg-4 col-xs-6">
                         <div class="info-box">
                             <a href="{!! route('admin.users.index', Auth::user()->id) !!}">
-                            <span class="info-box-icon bg-yellow"><i class="fa fa-archive"></i></span>
+                            <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Users</span>
                                 <span class="info-box-number">

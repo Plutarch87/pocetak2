@@ -16,7 +16,10 @@ class CreateEventsTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('name')->index();
-            $table->boolean('status');
+            $table->string('type')->index();
+            $table->softDeletes();
+            $table->boolean('active')->nullable();
+            $table->integer('playerNo');
 			$table->timestamps();
 		});
 	}

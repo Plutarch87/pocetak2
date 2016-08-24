@@ -20,8 +20,13 @@
                     <th>{{ $user->name }}</th>
                     <th>{{ $user->email }}</th>
                     <th><div class="thumbnail">{!! Html::image($user->img, $user->name, ['width' => '100px']) !!}</div></th>
-                    <th><a class="button btn-sm btn-primary" href="{{ action('Admin\UserController@edit', [$user->id, \Auth::user()->id]) }}">Edit</a></th>
-                    <th><a class="button btn-sm btn-danger" href="{{ action('Admin\UserController@destroy', [$user->id, \Auth::user()->id]) }}">Delete</a></th>
+                    <th><a class="button btn-sm btn-primary" href="{{ action('Admin\UserController@edit', [$user->id, Auth::user()->id]) }}">Edit</a></th>
+                    <th>
+                        {!! Form::open(['action' => 'Admin\UserController@destroy', $user->id], ['method' => 'DELETE']) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                        <a class="button btn-sm btn-danger" href="{{ action('Admin\UserController@destroy', $user->id) }}">Delete</a>
+                    </th>
                 </tr>
             @endforeach
         </tbody>

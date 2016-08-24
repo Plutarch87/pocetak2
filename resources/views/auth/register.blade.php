@@ -10,8 +10,11 @@
 
 					@include('auth.partials.errors')
 
-					@include('auth.partials.regForm')
-					
+					{!! Form::open(['class' => 'form-horizontal', 'role' => 'form' ],['route' => 'auth.register']) !!}
+						@include('auth.partials.regForm')
+					{!! Form::close() !!}
+
+
 				</div>
 			</div>
 		</div>

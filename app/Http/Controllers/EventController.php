@@ -4,6 +4,7 @@ use App\Event;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\EventRequest;
 use App\Http\Requests\EventUpdateRequest;
 use Illuminate\Http\Request;
 
@@ -39,11 +40,11 @@ class EventController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param EventUpdateRequest $request
+     * @param EventRequest $request
      * @param Event $event
      * @return Response
      */
-	public function store(EventUpdateRequest $request, Event $event)
+	public function store(EventRequest $request, Event $event)
 	{
 		$event->create($request->all());
 

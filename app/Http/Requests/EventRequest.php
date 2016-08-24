@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class UserUpdateRequest extends Request {
+class EventRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -23,6 +23,9 @@ class UserUpdateRequest extends Request {
 	{
 		return [
 			'name' => 'required|min:3',
+            'type' => 'required',
+
+            'active' => 'required_without'
 		];
 	}
 

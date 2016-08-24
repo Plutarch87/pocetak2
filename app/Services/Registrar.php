@@ -35,11 +35,11 @@ class Registrar implements RegistrarContract {
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'img' => 'storage/images/default.png'
+            'img' => 'storage/images/default.png',
+            'role' => $data['role']
         ]);
-        $role = Role::find(1);
 
-        $user->roles()->attach([$role->id]);
+        $user->roles()->attach($data['role']);
 
         return $user;
     }

@@ -22,15 +22,15 @@ Route::get('/', [
 
 Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index'] );
 
-Route::resource('admin', 'AdminController');
-
-Route::resource('admin.events', 'Admin\EventController');
-
 Route::resource('users', 'UserController');
+
+Route::resource('events', 'EventController');
+
+Route::resource('admin', 'AdminController');
 
 Route::resource('admin.users', 'Admin\UserController');
 
-Route::resource('events', 'EventController');
+Route::resource('admin.events', 'Admin\EventController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

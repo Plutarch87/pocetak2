@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class EventUpdateRequest extends Request {
+class UserRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class EventUpdateRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name' => 'required|min:3'
+			'name' => 'required|min:3',
 		];
 	}
 

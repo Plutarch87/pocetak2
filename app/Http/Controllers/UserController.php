@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserRequest;
 use App\Role;
 use Illuminate\Contracts\Auth\Guard;
 use App\User;
@@ -45,9 +45,9 @@ class UserController extends Controller {
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
-     * @param User $user
      * @return Response
+     * @internal param Request $request
+     * @internal param User $user
      * @internal param Request $request
      */
 	public function store()
@@ -70,8 +70,8 @@ class UserController extends Controller {
      * Show the form for editing the specified resource.
      *
      * @param User $user
-     * @param Role $roles
      * @return Response
+     * @internal param Role $roles
      * @internal param int obj
      */
 	public function edit(User $user)
@@ -82,12 +82,12 @@ class UserController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param UserUpdateRequest $request
+     * @param UserRequest $request
      * @param User $user
      * @return Response
      * @internal param obj
      */
-	public function update(UserUpdateRequest $request, User $user)
+	public function update(UserRequest $request, User $user)
 	{
         if($request->file('img') == null){
 
@@ -131,9 +131,9 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+
 	}
 
 }

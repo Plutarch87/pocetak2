@@ -1,7 +1,6 @@
 <?php
 
 use App\Role;
-use App\Type;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +16,6 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-        $this->call('TypeTableSeeder');
         $this->call('RoleTableSeeder');
 	}
 
@@ -45,33 +43,6 @@ class RoleTableSeeder extends Seeder {
         foreach($roles as $role)
         {
             Role::create($role);
-        }
-    }
-}
-
-class TypeTableSeeder extends Seeder {
-
-    public function run()
-    {
-        DB::table('types')->delete();
-
-        $types = [
-            [
-                'name' => 'League',
-            ],
-            [
-                'name' => 'Knockout Cup',
-            ],
-            [
-                'name' => 'Group Stage Tournament'
-            ]
-
-        ];
-
-        DB::table('types')->delete();
-        foreach($types as $type)
-        {
-            Type::create($type);
         }
     }
 }
