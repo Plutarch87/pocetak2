@@ -20,16 +20,16 @@
         <tbody>
             @foreach($events as $event)
                 <tr>
-                    <th><a href="{{ route('admin.events.show', [Auth::user()->id, $event->id ]) }}">{{ $event->name }}</a></th>
+                    <th>{!! $event->name !!}</th>
                     <th>{{ $event->type }}</th>
                     <th>{{ $event->playerNo }}</th>
-                    <th>{{ $event->active }}</th>
+                    <th>{{ $event->isActive($event) }}</th>
                     <th>{{ $event->created_at }}</th>
                     <th>{{ $event->updated_at }}</th>
-                    <th><a class="button btn-sm btn-primary" href="{{ route('admin.events.edit', [Auth::user()->id, $event->id]) }}">Edit</a></th>
+                    <th><a class="button btn-sm btn-primary" href="{{ route('admin.events.edit', [$event->id, Auth::user()->id ]) }}">Edit</a></th>
                     <th>
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.events.destroy', Auth::user()->id, $event->id ]]) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.events.destroy', $event->id, Auth::user()->id  ], 'onClick' => 'return confirm("Are you sure?")']) !!}
+                        {!! Form::submit('Delete', ['class' => 'btn-xs btn-danger']) !!}
                     {!! Form::close() !!}
                     </th>
                 </tr>

@@ -11,6 +11,8 @@
 |
 */
 
+use App\Event;
+
 Route::get('/', [
     'as' => 'welcome',
     function()
@@ -22,15 +24,15 @@ Route::get('/', [
 
 Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index'] );
 
+Route::resource('admin', 'AdminController');
+
 Route::resource('users', 'UserController');
 
 Route::resource('events', 'EventController');
 
-Route::resource('admin', 'AdminController');
+Route::resource('admin.events', 'AdminEventController');
 
-Route::resource('admin.users', 'Admin\UserController');
-
-Route::resource('admin.events', 'Admin\EventController');
+Route::resource('admin.users', 'AdminUserController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -1,6 +1,7 @@
 <?php namespace App\Providers;
 
 use App\Event;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class TournamentServiceProvider extends ServiceProvider {
@@ -36,7 +37,7 @@ class TournamentServiceProvider extends ServiceProvider {
     public function showAllEventsForAdmin()
     {
         view()->composer('admin.events.index', function ($view) {
-            $view->with('events', Event::all()->sortByDesc('created_at'));
+            $view->with('events', Event::get());
         });
     }
 

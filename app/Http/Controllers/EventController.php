@@ -10,17 +10,19 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller {
 
-    protected $event;
+    protected $events;
 
     public function __construct()
     {
 
     }
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Event $events
+     * @return Response
+     */
 	public function index()
 	{
 	    return view('events.index');
@@ -46,9 +48,11 @@ class EventController extends Controller {
      */
 	public function store(EventRequest $request, Event $event)
 	{
-		$event->create($request->all());
+        $event->create($request->all());
 
-        return redirect()->route('events.show', $event->id);
+        session()->flash('flash_message', 'Tournament created!');
+
+        return redirect()->route('admin.events.index');
 	}
 
     /**
@@ -71,7 +75,8 @@ class EventController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+	    $event = Event::find($id);
+		return view('admin.events.edit', compact('event'));
 	}
 
 	/**
@@ -80,10 +85,10 @@ class EventController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Event $event)
 	{
-		//
-	}
+        return view('admin.events.edit', compact('event'));
+    }
 
 	/**
 	 * Remove the specified resource from storage.

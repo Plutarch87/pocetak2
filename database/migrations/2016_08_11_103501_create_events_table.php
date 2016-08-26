@@ -20,6 +20,14 @@ class CreateEventsTable extends Migration {
             $table->softDeletes();
             $table->boolean('active')->nullable();
             $table->integer('playerNo');
+            $table->integer('scoreTotal');
+            $table->integer('matches');
+            $table->integer('sets');
+            $table->integer('points');
+            $table->integer('wins');
+            $table->integer('loss');
+            $table->integer('draw');
+            $table->rememberToken();
 			$table->timestamps();
 		});
 	}

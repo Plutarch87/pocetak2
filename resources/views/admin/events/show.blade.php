@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', Auth::user()->event))
+@section('title', $event->name)
 
 @section('content')
     <div class="container">

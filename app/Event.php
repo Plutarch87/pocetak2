@@ -18,5 +18,14 @@ class Event extends Model {
         return $this->belongsToMany('App\User');
     }
 
-
+    public function isActive()
+    {
+        if($this->active){
+            return 'active';
+        }
+        else
+        {
+            return 'inactive';
+        }
+    }
 }
