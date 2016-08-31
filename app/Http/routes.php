@@ -22,13 +22,20 @@ Route::get('/', [
     } else {return redirect()->route('home');}
 }]);
 
+Route::get('/admin/{admin}/add-to-round', [
+    'as' => 'user.addToRound',
+    'uses' => 'RoundController@addToRound'
+]);
+
 Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index'] );
 
 Route::resource('admin', 'AdminController');
 
 Route::resource('users', 'UserController');
 
-Route::resource('events', 'EventController');
+Route::resource('events', 'EventController', [
+    'only' => ['index', 'show']
+]);
 
 Route::resource('admin.events', 'AdminEventController');
 

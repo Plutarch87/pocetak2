@@ -5,8 +5,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\EventRequest;
+use App\Round;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminEventController extends Controller {
 
@@ -17,18 +19,21 @@ class AdminEventController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin.events.index');
+	    $events = Event::all()->sortByDesc('created_at');
+		return view('admin.events.index', compact('events'));
 	}
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param Event $event
+     * @param User $users
      * @return Response
+     * @internal param Event $event
      */
 	public function create()
 	{
-        return view('admin.events.create');
+	    $users = User::lists('name', 'name');
+        return view('admin.events.create', compact('users'));
     }
 
     /**
@@ -41,24 +46,42 @@ class AdminEventController extends Controller {
      */
 	public function store(EventRequest $request, $id)
 	{
+        if(count($request->input('players')) == $request->input('playerNo'))
+        {
+            $event = Event::create($request->except('_token','random_chk','players'));
 
-	    Event::where('id', $id)->insert($request->except('_token','random_chk'));
+            foreach($request->input('players') as $input) :
 
-        session()->flash('flash_message', 'Event successfully created.');
+                    $round = Round::create([
+                        'player' => $input,
+                    ]);
+                    $event->rounds()->save($round);
+            endforeach;
 
-        return back();
+            session()->flash('flash_message', 'Tournament created successfully. ');
+
+                return redirect()->route('admin.events.show', [$event->id, $event->id]);
+        }
+        else
+        {
+            session()->flash('flash_error', 'Please correct the input');
+            return back()->withInput();
+        }
+
     }
 
     /**
      * Display the specified resource.
      *
      * @param User $user
-     * @param Event $event
+     * @param $id
      * @return Response
+     * @internal param Event $event
      * @internal param int $id
      */
-	public function show(User $user, Event $event)
+	public function show(User $user, $id)
 	{
+	    $event = Event::find($id);
 		return view('admin.events.show', compact('user', 'event'));
 	}
 
@@ -74,7 +97,6 @@ class AdminEventController extends Controller {
 	public function edit(User $user, $id)
 	{
         $event = Event::find($id);
-
         return view('admin.events.edit', compact('user', 'event'));
     }
 
@@ -93,18 +115,16 @@ class AdminEventController extends Controller {
 
         session()->flash('flash_message', 'Event successfully updated.');
 
-        return back();
+        return redirect()->route('admin.events.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
-     * @param Event $event
+     * @param $id
      * @return Response
-     * @internal param int $id
      */
-	public function destroy(User $user, $id)
+	public function destroy($id)
 	{
 	    Event::find($id)->delete();
 

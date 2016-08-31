@@ -11,11 +11,16 @@ class Event extends Model {
 
 	protected $table = 'events';
 
-    protected $fillable = ['name', 'type', 'active'];
+    protected $fillable = ['name', 'type', 'active', 'playerNo'];
 
-    function users()
+    public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->hasMany('App\User');
+    }
+
+    public function rounds()
+    {
+        return $this->hasMany('App\Round');
     }
 
     public function isActive()
@@ -28,4 +33,6 @@ class Event extends Model {
             return 'inactive';
         }
     }
+
+
 }

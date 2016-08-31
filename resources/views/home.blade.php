@@ -7,10 +7,14 @@
 
         <hr>
         <h2>Users:</h2>
-        @include('partials.allUsers')
+        @foreach($users as $user)
+            <li><a href="{{ route('users.index') }}">{{ $user->name }}</a></li>
+        @endforeach
         <hr>
         <h2>Events:</h2>
-        @include('partials.allEvents')
+        @foreach($events as $event)
+            <li><a href="{{ route('events.index') }}">{{ $event->name }}</a></li>
+        @endforeach
     </div>
 
 @endsection

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,20 +30,7 @@ class AdminController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-		//
-	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
 
     /**
      * Display the specified resource.
@@ -53,6 +41,7 @@ class AdminController extends Controller {
      */
 	public function show(User $user)
 	{
+	    $user = Auth::user();
 		return view('admin.show', compact('user'));
 	}
 
@@ -73,16 +62,21 @@ class AdminController extends Controller {
      * Update the specified resource in storage.
      *
      * @param UserRequest $request
-     * @param User $user
+     * @param $id
      * @return Response
+     * @internal param User $user
      * @internal param int $id
      */
-	public function update(UserRequest $request, User $user)
+	public function update(UserRequest $request, $id)
 	{
+	    $user = User::find($id);
         if($request->file('img') == null){
             $user->update($request->except('img','role_list', '_method','_token'));
+            $user->roles()->sync($request->input('role_list'));
             session()->flash('flash_message', 'Profile successfully updated.');
+
             return redirect()->route('admin.index', Auth::user()->id);
+
         }
             elseif($this->checkFileType($request))
         {
@@ -93,11 +87,11 @@ class AdminController extends Controller {
             return response()->json("File must be in image format(.jpeg, .jpg, .png)", 405);
         }
 
+        $user->roles()->sync($request->input('role_list'));
         $user->update($request->except('img','role_list','_method','_token'));
-
         session()->flash('flash_message', 'Profile successfully updated.');
 
-        return redirect()->route('admin.index', Auth::user()->id);
+        return redirect()->route('admin.show', Auth::user()->id);
     }
 
     /**
@@ -107,11 +101,9 @@ class AdminController extends Controller {
      * @return Response
      * @internal param int $id
      */
-	public function destroy(User $user)
+	public function destroy()
 	{
-		$user->delete();
-
-        return back();
+		return back();
 	}
 
     /**

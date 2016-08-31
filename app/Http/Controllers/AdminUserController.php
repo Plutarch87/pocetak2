@@ -20,29 +20,6 @@ class AdminUserController extends Controller {
 		return view('admin.users.index');
 	}
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     * @internal param User $user
-     * @internal param UserRequest $request
-     */
-	public function create()
-	{
-        return view('admin.users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param UserRequest $request
-     * @param $id
-     * @return Response
-     * @internal param User $user
-     */
-	public function store(UserRequest $request, $id )
-	{
-		return back();
-	}
 
     /**
      * Display the specified resource.
@@ -55,7 +32,7 @@ class AdminUserController extends Controller {
 	public function show($id)
 	{
 	    $user = User::find($id);
-		return view('admin.users.show', compact($user));
+		return view('admin.users.show', compact('user'));
 	}
 
     /**
@@ -69,7 +46,6 @@ class AdminUserController extends Controller {
 	public function edit($id)
 	{
 	    $user = User::find($id);
-
 		return view('admin.users.edit', compact('user'));
 	}
 

@@ -1,6 +1,6 @@
 <?php namespace App\Services;
 
-use App\Role;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
@@ -33,13 +33,22 @@ class Registrar implements RegistrarContract {
 	{
         $user = User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'img' => 'storage/images/default.png',
-            'role' => $data['role']
+            'role' => $data['role'],
+            'email' => $data['email']
         ]);
 
         $user->roles()->attach($data['role']);
+
+        Mail::send('emails.register', ['data' => $data], function ($m) use ($data)
+        {
+            $email = $data['email'];
+            $name = $data['name'];
+            $m->from('andrej.hohnjec@planetsg.com', 'Tournament Scheduler');
+
+            $m->to($email, $name)->subject('Confirm Registration');
+        });
 
         return $user;
     }

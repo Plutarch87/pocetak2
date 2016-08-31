@@ -3,6 +3,7 @@
 @section('title', 'Event:')
 
 @section('content')
-    <h3>{{ $event->name }}<small>{{ $event->type }}</small></h3>
+    <h3>{{ $event->name }}&nbsp;<small>{{ $event->type }}</small></h3>
+    {{ $event->type  }}
 
 @endsection

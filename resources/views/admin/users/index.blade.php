@@ -17,7 +17,7 @@
         <tbody>
             @foreach($users as $user)
                 <tr>
-                    <th>{{ $user->name }}</th>
+                <th><a href="{{ route('admin.users.show', [$user->id, Auth::user()->id]) }}">{{ $user->name }}</a></th>
                     <th>{{ $user->email }}</th>
                     <th><div class="thumbnail">{!! Html::image($user->img, $user->name, ['width' => '100px']) !!}</div></th>
                     <th><a class="button btn-sm btn-primary" href="{{ action('AdminUserController@edit', [$user->id, Auth::user()->id ]) }}">Edit</a></th>

@@ -9,8 +9,8 @@
         {!! Form::label('img', 'Select Image:', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-4">
         {!! Form::file('img', old('img'), ['class' => 'form-control', 'alt' => $user->name]) !!}
-        <div class="thumbnail col-sm-3">
-            {!! Html::image($user->img) !!}
+        <div class="thumbnail col-sm-4">
+            {!! Html::image($img)  !!}
         </div>
     </div>
 </div>
@@ -25,7 +25,7 @@
     {!! Form::label('role', 'Role(s):', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-4">
         <p class="form-control">
-        @foreach($user->roles as $role)
+        @foreach(Auth::user()->roles as $role)
             {!! $role->name !!},
         @endforeach
         </p>
