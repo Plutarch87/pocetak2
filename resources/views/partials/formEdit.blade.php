@@ -4,7 +4,6 @@
         {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
     </div>
 </div>
-
 <div class="form-group">
         {!! Form::label('img', 'Select Image:', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-4">
@@ -18,14 +17,14 @@
 <div class="form-group">
     {!! Form::label('role_list', 'Grant a Role:', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-4">
-        {!! Form::select('role_list[]', $roles, null, ['id' => 'role_list', 'class' => 'form-control', 'multiple']) !!}
+        {!! Form::select('role_list[]', trans('roles.roles'), null, ['id' => 'role_list', 'class' => 'form-control', 'multiple']) !!}
     </div>
 </div>
 <div class="form-group">
     {!! Form::label('role', 'Role(s):', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-4">
         <p class="form-control">
-        @foreach(Auth::user()->roles as $role)
+        @foreach($user->roles as $role)
             {!! $role->name !!},
         @endforeach
         </p>

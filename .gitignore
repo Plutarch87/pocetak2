@@ -2,4 +2,4 @@
 /node_modules
 .env
 /.idea
-/public/images
+/public/storage/images

@@ -22,9 +22,11 @@
                     <th><div class="thumbnail">{!! Html::image($user->img, $user->name, ['width' => '100px']) !!}</div></th>
                     <th><a class="button btn-sm btn-primary" href="{{ action('AdminUserController@edit', [$user->id, Auth::user()->id ]) }}">Edit</a></th>
                     <th>
+                        @if(Auth::user()->isAdmin())
                         {!! Form::open(['method' => 'DELETE', 'route' => ['admin.users.destroy', $user->id, Auth::user()->id  ], 'onClick' => 'return confirm("Are you sure?")']) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}
+                        @endif
                     </th>
                 </tr>
             @endforeach

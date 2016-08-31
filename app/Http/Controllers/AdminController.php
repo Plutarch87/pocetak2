@@ -55,7 +55,9 @@ class AdminController extends Controller {
      */
 	public function edit(User $user)
 	{
-        return view('admin.edit', compact('user'));
+	    $user = Auth::user();
+	    $roles = $user->roles()->lists('name');
+        return view('admin.edit', compact('user', 'roles'));
 	}
 
     /**
