@@ -19,7 +19,6 @@ class CreateEventsTable extends Migration {
             $table->string('type')->index();
             $table->softDeletes();
             $table->boolean('active')->nullable();
-            $table->integer('playerNo');
             $table->rememberToken();
 			$table->timestamps();
 		});

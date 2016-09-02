@@ -16,7 +16,6 @@ class CreateRoundsTable extends Migration {
 		{
 			$table->increments('id');
             $table->integer('event_id');
-            $table->string('player');
             $table->integer('scoreTotal');
             $table->integer('matches');
             $table->integer('sets');

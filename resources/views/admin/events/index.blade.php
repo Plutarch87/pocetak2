@@ -22,7 +22,7 @@
                 <tr>
                     <th><a href="{{ route('admin.events.show', [$event->id, $event->id]) }}">{{ $event->name }}</a></th>
                     <th>{{ $event->type }}</th>
-                    <th>{{ $event->playerNo }}</th>
+                    <th>{{ count($event->rounds->first()->users) }}</th>
                     <th>{{ $event->isActive($event) }}</th>
                     <th>{{ $event->created_at }}</th>
                     <th>{{ $event->updated_at }}</th>

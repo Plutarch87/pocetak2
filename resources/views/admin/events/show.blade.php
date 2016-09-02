@@ -5,6 +5,7 @@
 @section('content')
     <h1>{{ $event->type }}</h1>
     <div class="container">
+        <h2>Round 1</h2>
         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
@@ -16,23 +17,33 @@
                 <th>Wins</th>
                 <th>Losses</th>
                 <th>Draws</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($event->rounds as $round)
+            @foreach($event->rounds()->first()->users as $user)
                 <tr>
-                    <th>{{ $round->player }}</th>
-                    <th>{{ $round->scoreTotal }}</th>
-                    <th>{{ $round->matches }}</th>
-                    <th>{{ $round->sets }}</th>
-                    <th>{{ $round->points }}</th>
-                    <th>{{ $round->wins }}</th>
-                    <th>{{ $round->loss }}</th>
-                    <th>{{ $round->draw }}</th>
+                    <th><a href="{{ route('admin.users.show', [$user->id, Auth::user()->id]) }}">{{ $user->name }}</a></th>
+                    <th>{{ $user->rounds->first()->scoreTotal }}</th>
+                    <th>{{ $user->rounds->first()->matches }}</th>
+                    <th>{{ $user->rounds->first()->sets }}</th>
+                    <th>{{ $user->rounds->first()->points }}</th>
+                    <th>{{ $user->rounds->first()->wins }}</th>
+                    <th>{{ $user->rounds->first()->loss }}</th>
+                    <th>{{ $user->rounds->first()->draw }}</th>
+                    <th><a type="button" class="btn btn-danger" href="{{ route('removePlayer', [$event->id, $user]) }}">&minus;</a></th>
                 </tr>
             @endforeach
             </tbody>
         </table>
-    </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a type="button" class="btn btn-default" href="{{ route('admin.events.edit', [$event->id, $event->id]) }}">Edit</a>
+            </div>
+            <div class="col-md-4">
 
+                <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [Auth::user()->id, $event->id, $user->rounds->first()->id]) }}">BEGIN TOURNAMENT</a>
+            </div>
+        </div>
+    </div>
 @endsection

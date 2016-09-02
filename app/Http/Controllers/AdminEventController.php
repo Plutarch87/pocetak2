@@ -32,7 +32,7 @@ class AdminEventController extends Controller {
      */
 	public function create()
 	{
-	    $users = User::lists('name', 'name');
+	    $users = User::lists('name', 'id');
         return view('admin.events.create', compact('users'));
     }
 
@@ -46,28 +46,17 @@ class AdminEventController extends Controller {
      */
 	public function store(EventRequest $request, $id)
 	{
-        if(count($request->input('players')) == $request->input('playerNo'))
-        {
-            $event = Event::create($request->except('_token','random_chk','players'));
+            $event = Event::create($request->except('_token','random_chk'));
 
-            foreach($request->input('players') as $input) :
+            $round = new Round();
+            $event->rounds()->save($round);
 
-                    $round = Round::create([
-                        'player' => $input,
-                    ]);
-                    $event->rounds()->save($round);
-            endforeach;
+            $round->users()->attach($request->input('players'));
+
 
             session()->flash('flash_message', 'Tournament created successfully. ');
 
                 return redirect()->route('admin.events.show', [$event->id, $event->id]);
-        }
-        else
-        {
-            session()->flash('flash_error', 'Please correct the input');
-            return back()->withInput();
-        }
-
     }
 
     /**
@@ -97,7 +86,8 @@ class AdminEventController extends Controller {
 	public function edit(User $user, $id)
 	{
         $event = Event::find($id);
-        return view('admin.events.edit', compact('user', 'event'));
+        $users = User::lists('name', 'id');
+        return view('admin.events.edit', compact('event', 'users'));
     }
 
     /**
@@ -111,13 +101,14 @@ class AdminEventController extends Controller {
      */
 	public function update(EventRequest $request, $id)
 	{
-        Event::where('id', $id)->update($request->except('_token','random_chk','_method'));
+	    $event = Event::find($id);
+        $event->update($request->except('_token','random_chk','players'));
+        $event->rounds->first()->users()->sync($request->input('players'));
 
-        session()->flash('flash_message', 'Event successfully updated.');
+        session()->flash('flash_message', 'Tournament successfully updated. ');
 
-        return redirect()->route('admin.events.index');
-    }
-
+        return redirect()->route('admin.events.show', [$event->id, $event->id]);
+	}
     /**
      * Remove the specified resource from storage.
      *
@@ -129,6 +120,19 @@ class AdminEventController extends Controller {
 	    Event::find($id)->delete();
 
         return back();
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removePlayer(Request $request, $id)
+    {
+        $event = Event::find($id);
+        $event->rounds()->first()->users()->detach($request->user);
+        return back();
+
     }
 
 }

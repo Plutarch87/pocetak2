@@ -22,9 +22,19 @@ Route::get('/', [
     } else {return redirect()->route('home');}
 }]);
 
-Route::get('/admin/{admin}/add-to-round', [
-    'as' => 'user.addToRound',
-    'uses' => 'RoundController@addToRound'
+Route::get('remove-player/{id}/{user}', [
+   'as' => 'removePlayer',
+    'uses' => 'AdminEventController@removePlayer'
+]);
+
+Route::get('admin/{users}/events/{events}/rounds/{rounds}/edit', [
+    'as' => 'admin.events.rounds.edit',
+    'uses' => 'AdminRoundController@edit'
+]);
+
+Route::get('admin/{users}/events/{events}/rounds/update', [
+    'as' => 'admin.events.rounds.update',
+    'uses' => 'AdminRoundController@update'
 ]);
 
 Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index'] );

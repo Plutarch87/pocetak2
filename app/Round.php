@@ -5,11 +5,9 @@ use App\User;
 
 class Round extends Model{
 
-    protected $fillable = ['player'];
-
     public function event()
     {
-        return $this->belongsTo('App\Event');
+        return $this->belongsToMany('App\Event');
     }
 
     public function users()

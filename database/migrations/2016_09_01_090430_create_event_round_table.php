@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoundUserTable extends Migration {
+class CreateEventRoundTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,13 @@ class CreateRoundUserTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('round_user', function(Blueprint $table)
+        Schema::create('event_round', function(Blueprint $table)
         {
             $table->integer('round_id')->unsigned()->index();
             $table->foreign('round_id')->references('id')->on('rounds')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('event_id')->unsigned()->index();
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
@@ -31,7 +31,7 @@ class CreateRoundUserTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('round_user');
+        Schema::drop('event_round');
     }
 
 }

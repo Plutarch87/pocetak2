@@ -11,16 +11,16 @@ class Event extends Model {
 
 	protected $table = 'events';
 
-    protected $fillable = ['name', 'type', 'active', 'playerNo'];
+    protected $fillable = ['name', 'type', 'active'];
 
     public function users()
     {
-        return $this->hasMany('App\User');
+        return $this->hasManyThrough('App\User', 'App\Round');
     }
 
     public function rounds()
     {
-        return $this->hasMany('App\Round');
+        return $this->belongsToMany('App\Round')->withTimestamps();
     }
 
     public function isActive()
