@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\EventRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 class EventController extends Controller {
@@ -30,13 +31,25 @@ class EventController extends Controller {
     /**
      * Display the specified resource.
      *
+     * @param User $user
      * @param Event $event
      * @return Response
      * @internal param int $id
      */
-	public function show(Event $event)
+	public function show(User $user, Event $event)
 	{
-		return view('events.show', compact('event'));
+        $rounds = $event->rounds();
+        $users = $rounds->first()->users;
+
+        return view('events.show', compact('event', 'rounds', 'user', 'users'));
+	}
+
+	public function details($id)
+	{
+	    $event = Event::find($id);
+        $users = $event->rounds()->first()->users;
+
+	    return view('events.details', compact('event', 'users'));
 	}
 
 }

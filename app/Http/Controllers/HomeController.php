@@ -12,7 +12,7 @@ class HomeController extends Controller {
 	public function index()
 	{
 	    $users = User::all();
-        $events = Event::orderBy('created_at', 'desc');
+        $events = Event::all();
         return view('home', compact('users', 'events'));
 	}
 

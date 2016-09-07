@@ -23,16 +23,4 @@ class Event extends Model {
         return $this->belongsToMany('App\Round')->withTimestamps();
     }
 
-    public function isActive()
-    {
-        if($this->active){
-            return 'active';
-        }
-        else
-        {
-            return 'inactive';
-        }
-    }
-
-
 }

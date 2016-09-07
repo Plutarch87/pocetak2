@@ -22,51 +22,39 @@ Route::get('/', [
     } else {return redirect()->route('home');}
 }]);
 
-Route::get('remove-player/{id}/{user}', [
-   'as' => 'removePlayer',
-    'uses' => 'AdminEventController@removePlayer'
-]);
-
-Route::get('admin/{users}/events/{events}/rounds/{rounds}/edit', [
-    'as' => 'admin.events.rounds.edit',
-    'uses' => 'AdminRoundController@edit'
-]);
-
-Route::get('admin/{users}/events/{events}/rounds/update', [
-    'as' => 'admin.events.rounds.update',
-    'uses' => 'AdminRoundController@update'
-]);
-
 Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index'] );
 
-Route::resource('admin', 'AdminController');
+//User Routes
 
-Route::resource('users', 'UserController');
-
-Route::resource('events', 'EventController', [
-    'only' => ['index', 'show']
+Route::get('events/{id}/details', [
+    'middleware' => 'auth',
+    'as' => 'events.details',
+    'uses' => 'EventController@details'
 ]);
+
+Route::resource('events', 'EventController', ['only' => ['index', 'show'] ]);
+
+Route::resource('admin', 'AdminController', ['except' => ['destroy', 'create', 'store']]);
+
+Route::resource('users', 'UserController', ['except' => ['create', 'store']]);
+
+
+//Admin Routes
+
+Route::get('remove-player/{id}/{user}', ['as' => 'removePlayer', 'uses' => 'AdminEventController@removePlayer' ]);
 
 Route::resource('admin.events', 'AdminEventController');
 
 Route::resource('admin.users', 'AdminUserController');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::resource('admin.events.rounds', 'AdminRoundController');
 
-Route::get('auth/login', [
-    'as' => 'auth.login',
-    'uses' => 'Auth\AuthController@getLogin'
-]);
+//Controller Routes
 
-Route::get('auth/register', [
-    'as' => 'auth.register',
-    'uses' => 'Auth\AuthController@getRegister'
-]);
+Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController',]);
 
-Route::get('auth/logout', [
-    'as' => 'auth.logout',
-    'uses' => 'Auth\AuthController@getLogout'
-]);
+Route::get('auth/login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@getLogin']);
+
+Route::get('auth/register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister']);
+
+Route::get('auth/logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout']);

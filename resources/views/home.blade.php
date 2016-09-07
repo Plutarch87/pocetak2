@@ -8,12 +8,12 @@
         <hr>
         <h2>Users:</h2>
         @foreach($users as $user)
-            <li><a href="{{ route('users.index') }}">{{ $user->name }}</a></li>
+            <li><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></li>
         @endforeach
         <hr>
         <h2>Events:</h2>
         @foreach($events as $event)
-            <li><a href="{{ route('events.index') }}">{{ $event->name }}</a></li>
+            <li><a href="{{ route('events.show', $event->id) }}">{{ $event->name }}</a></li>
         @endforeach
     </div>
 

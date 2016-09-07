@@ -12,6 +12,8 @@
 
 					@include('auth.partials.logForm')
 
+					@include('auth.partials.flash')
+
 				</div>
 			</div>
 		</div>

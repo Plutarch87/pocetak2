@@ -23,9 +23,9 @@
                     <th><a href="{{ route('admin.events.show', [$event->id, $event->id]) }}">{{ $event->name }}</a></th>
                     <th>{{ $event->type }}</th>
                     <th>{{ count($event->rounds->first()->users) }}</th>
-                    <th>{{ $event->isActive($event) }}</th>
-                    <th>{{ $event->created_at }}</th>
+                    <th>{{ $event->active ? 'active': 'pending' }}</th>
                     <th>{{ $event->updated_at }}</th>
+                    <th>{{ $event->deleted_at ? $event->deleted_at : 'in progress' }}</th>
                     <th><a class="button btn-sm btn-primary" href="{{ route('admin.events.edit', [$event->id, $event->id ]) }}">Edit</a></th>
                     <th>
                     {!! Form::open(['method' => 'DELETE', 'route' => ['admin.events.destroy', $event->id, $event->id  ], 'onClick' => 'return confirm("Are you sure?")']) !!}

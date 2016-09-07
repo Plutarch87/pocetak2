@@ -103,7 +103,7 @@ class AdminEventController extends Controller {
 	{
 	    $event = Event::find($id);
         $event->update($request->except('_token','random_chk','players'));
-        $event->rounds->first()->users()->sync($request->input('players'));
+        $request->input('players') ? $event->rounds->first()->users()->sync($request->input('players')) : null;
 
         session()->flash('flash_message', 'Tournament successfully updated. ');
 
@@ -119,7 +119,8 @@ class AdminEventController extends Controller {
 	{
 	    Event::find($id)->delete();
 
-        return back();
+        session()->flash('flash_delete', 'Tournament deactivated. You can view all inactive tournaments <a href="#">here</a>.');
+        return redirect()->route('admin.events.index', Auth::user()->id);
     }
 
     /**
@@ -134,5 +135,4 @@ class AdminEventController extends Controller {
         return back();
 
     }
-
 }

@@ -3,8 +3,8 @@
 @section('title', $event->name)
 
 @section('content')
-    <h1>{{ $event->type }}</h1>
     <div class="container">
+        <h1>Type: <small>{{ $event->type }}</small></h1>
         <h2>Round 1</h2>
         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -38,12 +38,20 @@
         </table>
         <div class="row">
             <div class="col-md-4">
-                <a type="button" class="btn btn-default" href="{{ route('admin.events.edit', [$event->id, $event->id]) }}">Edit</a>
             </div>
             <div class="col-md-4">
-
-                <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [Auth::user()->id, $event->id, $user->rounds->first()->id]) }}">BEGIN TOURNAMENT</a>
+            @if($event->active)
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.events.destroy', $event->id, $event->id]]) !!}
+                          {!! Form::submit('Deactivate', ['class' => 'btn btn-default pull-left', 'type' => 'button']) !!}
+                    {!! Form::close() !!}
+                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.create', [$event->id, $event->id]) }}">PROCEED</a>
+                @else
+                    <a type="button" class="btn btn-default" href="{{ route('admin.events.edit', [$event->id, $event->id]) }}">Edit</a>
+                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.create', [$event->id, $event->id]) }}">BEGIN TOURNAMENT</a>
+                @endif
             </div>
         </div>
+
+
     </div>
 @endsection
