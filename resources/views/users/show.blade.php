@@ -14,6 +14,7 @@
                 <h3>Match History</h3>
             </div>
         </div>
+        @if(count($user->rounds))
         <div class="row">
             <h3>Overall</h3>
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -41,6 +42,7 @@
                 </tbody>
             </table>
         </div>
+        @endif
     </div>
 
 @endsection
