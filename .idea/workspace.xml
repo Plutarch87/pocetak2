@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3d054cd-05ae-4660-9cc4-38b3bed0cfbd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_08_09_101140_create_role_user_table.php" afterPath="$PROJECT_DIR$/database/migrations/2016_08_09_101140_create_role_user_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
-    </list>
+    <list default="true" id="f3d054cd-05ae-4660-9cc4-38b3bed0cfbd" name="Default" comment="" />
     <ignored path="tournament_scheduler.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -25,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="2016_08_09_101140_create_role_user_table.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2016_08_09_101140_create_role_user_table.php">
+      <file leaf-file-name="2014_10_12_000000_create_users_table.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="17" column="90" selection-start-line="17" selection-start-column="90" selection-end-line="17" selection-end-column="90" />
+            <state relative-caret-position="462">
+              <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -349,12 +345,12 @@
       <workItem from="1472717542429" duration="23421000" />
       <workItem from="1472805221253" duration="21306000" />
       <workItem from="1473064951438" duration="42659000" />
-      <workItem from="1473237530752" duration="1038000" />
+      <workItem from="1473237530752" duration="1406000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="454391000" />
+    <option name="totallyTimeSpent" value="454759000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1688" y="-8" width="1696" height="1066" extended-state="6" />
@@ -499,23 +495,6 @@
             <marker date="1473237310178" expanded="true" signature="274:662" ph="{...}" />
             <marker date="1473237310178" expanded="true" signature="673:725" ph=" Reverse the migrations. ..." />
             <marker date="1473237310178" expanded="true" signature="751:783" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-          <folding>
-            <marker date="1473237310176" expanded="false" signature="11:94" ph="..." />
-            <marker date="1473237310176" expanded="true" signature="138:705" ph="..." />
-            <marker date="1473237310176" expanded="true" signature="144:192" ph=" Run the migrations. ..." />
-            <marker date="1473237310176" expanded="true" signature="216:588" ph="{...}" />
-            <marker date="1473237310176" expanded="true" signature="237:583" ph="..." />
-            <marker date="1473237310176" expanded="true" signature="272:583" ph="{...}" />
-            <marker date="1473237310176" expanded="true" signature="594:646" ph=" Reverse the migrations. ..." />
-            <marker date="1473237310176" expanded="true" signature="672:703" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -792,6 +771,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="17" column="90" selection-start-line="17" selection-start-column="90" selection-end-line="17" selection-end-column="90" />
+          <folding>
+            <marker date="1473238562797" expanded="false" signature="11:94" ph="..." />
+            <marker date="1473238562797" expanded="true" signature="141:767" ph="..." />
+            <marker date="1473238562797" expanded="true" signature="147:195" ph=" Run the migrations. ..." />
+            <marker date="1473238562797" expanded="true" signature="219:646" ph="{...}" />
+            <marker date="1473238562797" expanded="true" signature="240:641" ph="..." />
+            <marker date="1473238562797" expanded="true" signature="279:641" ph="{...}" />
+            <marker date="1473238562797" expanded="true" signature="652:704" ph=" Reverse the migrations. ..." />
+            <marker date="1473238562797" expanded="true" signature="730:765" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
           <folding />
         </state>
       </provider>
