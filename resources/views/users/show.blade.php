@@ -12,6 +12,11 @@
             </div>
             <div class="col-md-4 pull-right">
                 <h3>Match History</h3>
+                @if(count($user->events))
+                    @foreach($user->events as $event)
+                        <p>{{ $event->name }}</p>
+                    @endforeach
+                @endif
             </div>
         </div>
         @if(count($user->rounds))

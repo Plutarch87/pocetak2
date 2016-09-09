@@ -3,8 +3,7 @@
 use App\Http\Requests\Request;
 use App\Round;
 
-class RoundRequest
-{
+class RoundRequest extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +23,7 @@ class RoundRequest
     public function rules()
     {
         return [
-            'score' => 'required_without',
+            'scoreTotal' => 'required_without',
             'matches' => 'required_without',
         ];
     }

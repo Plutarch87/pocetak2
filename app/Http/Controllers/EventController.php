@@ -39,7 +39,7 @@ class EventController extends Controller {
 	public function show(User $user, Event $event)
 	{
         $rounds = $event->rounds();
-        $users = $rounds->first()->users;
+        $users = $event->users;
 
         return view('events.show', compact('event', 'rounds', 'user', 'users'));
 	}
@@ -47,7 +47,7 @@ class EventController extends Controller {
 	public function details($id)
 	{
 	    $event = Event::find($id);
-        $users = $event->rounds()->first()->users;
+        $users = $event->users;
 
 	    return view('events.details', compact('event', 'users'));
 	}

@@ -44,19 +44,18 @@ class AdminEventController extends Controller {
      * @return Response
      * @internal param Event $event
      */
-	public function store(EventRequest $request, $id)
+	public function store(EventRequest $request)
 	{
-            $event = Event::create($request->except('_token','random_chk'));
+	    $event = Event::create($request->except('_token','random_chk'));
+        $event->save();
+        $event->users()->sync($request->input('players'));
+        foreach($event->users as $user) :
+            $user->rounds()->create($request->except('_token', 'random_chk', 'players'));
+        endforeach;
 
-            $round = new Round();
-            $event->rounds()->save($round);
+        session()->flash('flash_message', 'Tournament created successfully. ');
 
-            $round->users()->attach($request->input('players'));
-
-
-            session()->flash('flash_message', 'Tournament created successfully. ');
-
-                return redirect()->route('admin.events.show', [$event->id, $event->id]);
+        return redirect()->route('admin.events.show', [$event->id, $event->id]);
     }
 
     /**
@@ -103,7 +102,7 @@ class AdminEventController extends Controller {
 	{
 	    $event = Event::find($id);
         $event->update($request->except('_token','random_chk','players'));
-        $request->input('players') ? $event->rounds->first()->users()->sync($request->input('players')) : null;
+        $request->input('players') ? $event->users()->sync($request->input('players')) : null;
 
         session()->flash('flash_message', 'Tournament successfully updated. ');
 
@@ -131,7 +130,7 @@ class AdminEventController extends Controller {
     public function removePlayer(Request $request, $id)
     {
         $event = Event::find($id);
-        $event->rounds()->first()->users()->detach($request->user);
+        $event->users()->detach($request->user);
         return back();
 
     }

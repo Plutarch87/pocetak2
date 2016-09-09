@@ -51,12 +51,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function events()
     {
-        return $this->belongsTo('App\Event');
+        return $this->belongsToMany('App\Event');
     }
 
     public function rounds()
     {
-        return $this->belongsToMany('App\Round');
+        return $this->hasMany('App\Round');
     }
 
     public function isAdmin()

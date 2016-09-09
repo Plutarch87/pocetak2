@@ -5,13 +5,15 @@ use App\User;
 
 class Round extends Model{
 
+    protected $fillable = ['scoreTotal'];
+
     public function event()
     {
-        return $this->belongsToMany('App\Event');
+        return $this->belongsTo('App\Event');
     }
 
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsTo('App\User');
     }
 }

@@ -15,12 +15,12 @@ class Event extends Model {
 
     public function users()
     {
-        return $this->hasManyThrough('App\User', 'App\Round');
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 
     public function rounds()
     {
-        return $this->belongsToMany('App\Round')->withTimestamps();
+        return $this->hasManyThrough('App\Round', 'App\User');
     }
 
 }

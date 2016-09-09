@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <th>{{ count($event->rounds->first()->users) }}</th>
+                    <th>{{ count($event->users) }}</th>
                     <th>{{ $event->active ? 'active': 'pending' }}</th>
                     <th>{{ $event->updated_at }}</th>
                     <th>{{ $event->deleted_at ? $event->deleted_at : 'in progress' }}</th>

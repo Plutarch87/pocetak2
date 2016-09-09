@@ -8,13 +8,8 @@
             <h1>{{ $event->name }}<small> Started @ {{ $event->users->first()->updated_at }}</small></h1>
             <div class="col-md-6">
                 <h2>Type: <small>{{ $event->type }}</small></h2>
-                <h3>Round {{ $event->rounds()->count() }}</h3>
+                <h3>Round {{ $event->users->first()->rounds()->count() }}</h3>
             </div>
-            {{--<div class="col-md-4">--}}
-            {{--@foreach($randoms as $random)--}}
-            {{--<h3>{{ $random }}</h3>--}}
-            {{--@endforeach--}}
-            {{--</div>--}}
         </div>
         <hr>
         <div class="row">
@@ -53,7 +48,9 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <a type="button" class="btn-lg btn-primary pull-right" href="{{ route('admin.events.rounds.create', [$event->id, $event->id]) }}">BEGIN ROUND {{ $user->rounds()->count() + 1 }}</a>
+                {!! Form::open(['route' => ['admin.events.rounds.store', $event->id, $event->id], 'role' => 'form']) !!}
+                {!! Form::submit('BEGIN ROUND '.($user->first()->rounds()->count() + 1), ['class' => 'btn-lg btn-primary push-right']) !!}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
