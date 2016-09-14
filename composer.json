@@ -12,7 +12,6 @@
 		"phpunit/phpunit": "~4.0",
 		"phpspec/phpspec": "~2.1",
         "laravelcollective/html": "~5.0"
-
     },
 	"autoload": {
 		"classmap": [

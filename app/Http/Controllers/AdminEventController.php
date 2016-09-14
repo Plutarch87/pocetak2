@@ -40,8 +40,8 @@ class AdminEventController extends Controller {
      * Store a newly created resource in storage.
      *
      * @param EventRequest $request
-     * @param $id
      * @return Response
+     * @internal param $id
      * @internal param Event $event
      */
 	public function store(EventRequest $request)
@@ -49,13 +49,17 @@ class AdminEventController extends Controller {
 	    $event = Event::create($request->except('_token','random_chk'));
         $event->save();
         $event->users()->sync($request->input('players'));
+        $round = $event->rounds()->create($request->all());
         foreach($event->users as $user) :
-            $user->rounds()->create($request->except('_token', 'random_chk', 'players'));
+            $result = $user->results()->create($request->except('_token', 'random_chk', 'players'));
+            $round->results()->attach($result);
+            $event->results()->attach($result);
+            $user->rounds()->attach($round);
         endforeach;
 
         session()->flash('flash_message', 'Tournament created successfully. ');
 
-        return redirect()->route('admin.events.show', [$event->id, $event->id]);
+        return redirect()->route('admin.events.rounds.show', [$event->id, $event->id, $round->id]);
     }
 
     /**
@@ -117,8 +121,8 @@ class AdminEventController extends Controller {
 	public function destroy($id)
 	{
 	    Event::find($id)->delete();
-
         session()->flash('flash_delete', 'Tournament deactivated. You can view all inactive tournaments <a href="#">here</a>.');
+
         return redirect()->route('admin.events.index', Auth::user()->id);
     }
 
@@ -131,6 +135,7 @@ class AdminEventController extends Controller {
     {
         $event = Event::find($id);
         $event->users()->detach($request->user);
+
         return back();
 
     }

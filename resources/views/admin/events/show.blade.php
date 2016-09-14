@@ -21,17 +21,17 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($event->users as $user)
+            @foreach($event->rounds->first()->results as $result)
                 <tr>
-                    <th><a href="{{ route('admin.users.show', [$user->id, Auth::user()->id]) }}">{{ $user->name }}</a></th>
-                    <th>{{ $user->rounds->first()->scoreTotal }}</th>
-                    <th>{{ $user->rounds->first()->matches }}</th>
-                    <th>{{ $user->rounds->first()->sets }}</th>
-                    <th>{{ $user->rounds->first()->points }}</th>
-                    <th>{{ $user->rounds->first()->wins }}</th>
-                    <th>{{ $user->rounds->first()->loss }}</th>
-                    <th>{{ $user->rounds->first()->draw }}</th>
-                    <th><a type="button" class="btn btn-danger" href="{{ route('removePlayer', [$event->id, $user]) }}">&minus;</a></th>
+                    <th><a href="{{ route('admin.users.edit', [$result->id, Auth::user()->id]) }}">{{ $result->user->name }}</a></th>
+                    <th>{{ $result->scoreTotal }}</th>
+                    <th>{{ $result->matches }}</th>
+                    <th>{{ $result->sets }}</th>
+                    <th>{{ $result->points }}</th>
+                    <th>{{ $result->wins }}</th>
+                    <th>{{ $result->loss }}</th>
+                    <th>{{ $result->draw }}</th>
+                    <th><a type="button" class="btn btn-danger" href="{{ route('removePlayer', [$event->id, $result]) }}">&minus;</a></th>
                 </tr>
             @endforeach
             </tbody>
@@ -44,10 +44,10 @@
                     {!! Form::open(['method' => 'DELETE', 'route' => ['admin.events.destroy', $event->id, $event->id]]) !!}
                           {!! Form::submit('Deactivate', ['class' => 'btn btn-default pull-left', 'type' => 'button']) !!}
                     {!! Form::close() !!}
-                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [$event->id, $event->id, $user->rounds()->count()]) }}">PROCEED</a>
+                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [$event->id, $event->id, $event->rounds()->first()->id]) }}">PROCEED</a>
                 @else
                     <a type="button" class="btn btn-default" href="{{ route('admin.events.edit', [$event->id, $event->id]) }}">Edit</a>
-                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [$event->id, $event->id, $user->rounds()->count()]) }}">BEGIN TOURNAMENT</a>
+                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [$event->id, $event->id, $event->rounds()->first()->id]) }}">BEGIN TOURNAMENT</a>
                 @endif
             </div>
         </div>

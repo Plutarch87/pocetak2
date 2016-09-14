@@ -9,11 +9,16 @@ class Round extends Model{
 
     public function event()
     {
-        return $this->belongsTo('App\Event');
+        return $this->belongsToMany('App\Event');
     }
 
     public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsToMany('App\User');
+    }
+
+    public function results()
+    {
+        return $this->belongsToMany('App\Result')->withTimestamps();
     }
 }

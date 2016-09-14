@@ -41,6 +41,8 @@ Route::resource('users', 'UserController', ['except' => ['create', 'store']]);
 
 //Admin Routes
 
+Route::put('admin/{admin}/events/{event}/results/{result}/update', ['as' => 'admin.events.results.update', 'uses' => 'AdminResultController@update']);
+
 Route::get('remove-player/{id}/{user}', ['as' => 'removePlayer', 'uses' => 'AdminEventController@removePlayer' ]);
 
 Route::resource('admin.events', 'AdminEventController');

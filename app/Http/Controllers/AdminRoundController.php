@@ -22,17 +22,17 @@ class AdminRoundController extends Controller
     public function edit($id)
     {
         $event = Event::find($id);
-//        $randoms = $this->getRandomize($event);
+        $round = $event->users->first()->rounds->first();
 
-        return view('admin.events.rounds.edit', compact('event', 'randoms'));
+        return view('admin.events.rounds.edit', compact('event', 'round'));
     }
 
     /**
-     * @param RoundRequest $request
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(RoundRequest $request, $id, $id2, $id3)
+    public function update(Request $request, $id, $id2, $id3)
     {
         $event = Event::find($id);
         foreach($event->users as $user) :
@@ -55,18 +55,29 @@ class AdminRoundController extends Controller
     }
 
     /**
-     * @param RoundRequest $request
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(RoundRequest $request, $id)
+    public function store(Request $request, $id)
     {
         $event = Event::find($id);
+        $round = $event->rounds()->create($request->all());
         foreach($event->users as $user) :
-            $user->rounds()->create($request->except('_token', 'random_chk', 'players'));
+            $result = $user->results()->create($request->except('_token', 'random_chk', 'players'));
+            $event->results()->attach($result);
+            $round->results()->attach($result);
+            $user->rounds()->attach($round->id);
         endforeach;
 
-        return redirect()->route('admin.events.rounds.edit', [$event->id, $event->id, $user->rounds()->count()]);
+        return redirect()->route('admin.events.rounds.edit', [$event->id, $event->id, $round->id]);
+    }
+
+    public function show($id, User $user)
+    {
+        $event = Event::find($id);
+
+        return view('admin.events.rounds.show', [$event->id, $event->id], compact('event'));
     }
 
     /**

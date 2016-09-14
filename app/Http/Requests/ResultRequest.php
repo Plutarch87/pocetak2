@@ -1,9 +1,9 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Round;
+use App\Result;
 
-class RoundRequest extends Request {
+class ResultRequest extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,11 @@ class RoundRequest extends Request {
         return [
             'scoreTotal' => 'required_without',
             'matches' => 'required_without',
+            'sets' => 'required_without',
+            'points' => 'required_without',
+            'wins' => 'required_without',
+            'loss' => 'required_without',
+            'draw' => 'required_without'
         ];
     }
 

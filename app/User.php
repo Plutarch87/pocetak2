@@ -49,26 +49,40 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\Role')->withTimestamps();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function events()
     {
-        return $this->belongsToMany('App\Event');
+        return $this->belongsToMany('App\Event')->withTimestamps();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function rounds()
     {
-        return $this->hasMany('App\Round');
+        return $this->belongsToMany('App\Round')->withTimestamps();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function results()
+    {
+        return $this->hasMany('App\Result');
+    }
+
+    /**
+     * @return bool
+     */
     public function isAdmin()
     {
         if($this->roles()->first()->name == 'Admin')
         {
             return true;
         }
-    }
-    
-    public function getRoleListAttribute()
-    {
-        return $this->roles->lists('id');
+
+        return false;
     }
 }

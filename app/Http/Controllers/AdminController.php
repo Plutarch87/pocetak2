@@ -72,12 +72,13 @@ class AdminController extends Controller {
 	public function update(UserRequest $request, $id)
 	{
 	    $user = User::find($id);
-        if($request->file('img') == null){
-            $user->update($request->except('img','role_list', '_method','_token'));
-            $user->roles()->sync($request->input('role_list'));
+        if($request->file('img') == null)
+        {
+            $user->update($request->except('img', 'role_list', '_method','_token'));
+            $request->input('role_list') ? $user->roles()->sync($request->input('role_list')) : null;
             session()->flash('flash_message', 'Profile successfully updated.');
 
-            return redirect()->route('admin.index', Auth::user()->id);
+            return redirect()->route('admin.show', Auth::user()->id);
 
         }
             elseif($this->checkFileType($request))
@@ -89,8 +90,8 @@ class AdminController extends Controller {
             return response()->json("File must be in image format(.jpeg, .jpg, .png)", 405);
         }
 
-        $user->roles()->sync($request->input('role_list'));
         $user->update($request->except('img','role_list','_method','_token'));
+        $request->input('role_list') ? $user->roles()->sync($request->input('role_list')) : null;
         session()->flash('flash_message', 'Profile successfully updated.');
 
         return redirect()->route('admin.show', Auth::user()->id);
