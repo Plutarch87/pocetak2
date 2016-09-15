@@ -7,8 +7,9 @@
         <h1>{{ $event->name }}</h1>
         <h2>Type: <small>{{ $event->type }}</small></h2>
         <hr>
-        <h3>Round 1</h3>
-        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    @foreach($event->rounds as $round)
+            <h3>Round {{ $round->id }}</h3>
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <th>Player Name</th>
@@ -22,20 +23,21 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($event->rounds->first()->results as $result)
                 <tr>
-                    <th><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></th>
-                    <th>{{ $user->rounds->first()->scoreTotal }}</th>
-                    <th>{{ $user->rounds->first()->matches }}</th>
-                    <th>{{ $user->rounds->first()->sets }}</th>
-                    <th>{{ $user->rounds->first()->points }}</th>
-                    <th>{{ $user->rounds->first()->wins }}</th>
-                    <th>{{ $user->rounds->first()->loss }}</th>
-                    <th>{{ $user->rounds->first()->draw }}</th>
+                    <th><a href="{{ route('users.show', $result->user->id) }}">{{ $result->user->name }}</a></th>
+                    <th>{{ $result->scoreTotal }}</th>
+                    <th>{{ $result->matches }}</th>
+                    <th>{{ $result->sets }}</th>
+                    <th>{{ $result->points }}</th>
+                    <th>{{ $result->wins }}</th>
+                    <th>{{ $result->loss }}</th>
+                    <th>{{ $result->draw }}</th>
                 </tr>
             @endforeach
             </tbody>
         </table>
+        @endforeach
         <a href="{{ route('events.index') }}" type="button" class="btn btn-primary">Back to Events</a>
     </div>
 @endsection

@@ -19,13 +19,13 @@
             <tbody>
                 <tr>
                     <th>{{ count($event->users) }}</th>
-                    <th>{{ $event->active ? 'active': 'pending' }}</th>
+                    <th>{{ $event->active ? 'active' : 'pending' }}</th>
                     <th>{{ $event->updated_at }}</th>
                     <th>{{ $event->deleted_at ? $event->deleted_at : 'in progress' }}</th>
                 </tr>
             </tbody>
         </table>
-        <a href="{{ route('events.details', $event->id) }}" class="btn btn-primary">Detaljnije</a>
+        <a href="{{ route('events.details', $event->id) }}" class="btn btn-primary">Details</a>
     </div>
 
 @endsection

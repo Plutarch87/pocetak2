@@ -75,10 +75,10 @@ class AdminResultController extends Controller {
      * @internal param $id2
      * @internal param $id3
      */
-	public function update(ResultRequest $request, $id, $id2, $id3)
+	public function update(ResultRequest $request, $id, $id2, $id3, $id4)
 	{
-	    $event = Event::find($id);
-        $result = Result::find($id3);
+	    $round = Round::find($id3);
+        $result = Result::find($id4);
         $result->update($request->except('_method', '_token'));
 
         return back();

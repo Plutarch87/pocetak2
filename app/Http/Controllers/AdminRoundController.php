@@ -22,14 +22,17 @@ class AdminRoundController extends Controller
     public function edit($id)
     {
         $event = Event::find($id);
-        $round = $event->users->first()->rounds->first();
+        $event->active ? null : $event->active = 1;
+        $event->save();
 
-        return view('admin.events.rounds.edit', compact('event', 'round'));
+        return view('admin.events.rounds.edit', compact('event'));
     }
 
     /**
      * @param Request $request
      * @param $id
+     * @param $id2
+     * @param $id3
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id, $id2, $id3)

@@ -28,10 +28,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($event->rounds->first()->results as $result)
+                @foreach($event->rounds->pop()->results as $result)
                     <tr>
                         <th><a href="{{ route('admin.users.edit', [$result->id, Auth::user()->id]) }}">{{ $result->user->name }}</a></th>
-                        {!! Form::model($result, ['method' => 'PUT', 'route' => ['admin.events.results.update', $event->id, $event->id, $result->id]], ['role' => 'form', 'class' => 'form-horizontal']) !!}
+                        {!! Form::model($result, ['method' => 'PUT', 'route' => ['admin.events.rounds.results.update', $event->id, $event->id, $event->rounds()->first()->id, $result->id ]], ['role' => 'form', 'class' => 'form-horizontal']) !!}
                         <th>{!! Form::selectRange('scoreTotal', 0, 3) !!}</th>
                         <th>{!! Form::selectRange('matches', 0, count($event->rounds), ['disabled']) !!}</th>
                         <th>{!! Form::selectRange('sets', 0, 3) !!}</th>
@@ -53,7 +53,9 @@
                     {!! Form::submit('BEGIN ROUND '.($event->rounds()->count() + 1), ['class' => 'btn-lg btn-primary push-right']) !!}
                 {!! Form::close() !!}
                 @else
-                   <a type="button" class="btn-lg btn-primary push-right" href="{{ route('admin.events.show', [$event->id, $event->id]) }}">FINISH TOURNAMENT</a>
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['admin.events.destroy', $event->id, $event->id]]) !!}
+                    {!! Form::submit('FINISH TOURNAMENT', ['class' => 'btn btn-primary pull-right', 'type' => 'button']) !!}
+                    {!! Form::close() !!}
                 @endif
             </div>
         </div>

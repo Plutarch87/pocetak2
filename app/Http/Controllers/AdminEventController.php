@@ -19,8 +19,8 @@ class AdminEventController extends Controller {
 	 */
 	public function index()
 	{
-	    $events = Event::all()->sortByDesc('created_at');
-		return view('admin.events.index', compact('events'));
+        $events = Event::all()->sortByDesc('created_at');
+        return view('admin.events.index', compact('events'));
 	}
 
     /**
@@ -120,8 +120,20 @@ class AdminEventController extends Controller {
      */
 	public function destroy($id)
 	{
-	    Event::find($id)->delete();
-        session()->flash('flash_delete', 'Tournament deactivated. You can view all inactive tournaments <a href="#">here</a>.');
+	    $event = Event::find($id);
+        if ($event->active)
+        {
+            $event->active = 0;
+            $event->save();
+            $event->delete();
+            session()->flash('flash_delete', 'Tournament finished! You can view all finished tournaments <a href="#">here</a>.');
+        }
+        else
+        {
+            $event->active = 0;
+            $event->save();
+            session()->flash('flash_delete', 'Tournament deactivated. You can view all inactive tournaments <a href="#">here</a>.');
+        }
 
         return redirect()->route('admin.events.index', Auth::user()->id);
     }

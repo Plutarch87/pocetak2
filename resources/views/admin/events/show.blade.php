@@ -44,7 +44,7 @@
                     {!! Form::open(['method' => 'DELETE', 'route' => ['admin.events.destroy', $event->id, $event->id]]) !!}
                           {!! Form::submit('Deactivate', ['class' => 'btn btn-default pull-left', 'type' => 'button']) !!}
                     {!! Form::close() !!}
-                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [$event->id, $event->id, $event->rounds()->first()->id]) }}">PROCEED</a>
+                    <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [$event->id, $event->id, $event->rounds()->first()->max('id')]) }}">PROCEED</a>
                 @else
                     <a type="button" class="btn btn-default" href="{{ route('admin.events.edit', [$event->id, $event->id]) }}">Edit</a>
                     <a type="button" class="btn-lg btn-primary" href="{{ route('admin.events.rounds.edit', [$event->id, $event->id, $event->rounds()->first()->id]) }}">BEGIN TOURNAMENT</a>
